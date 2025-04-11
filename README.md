@@ -21,6 +21,10 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 🎯 Objetivos
 
+- Objetivo general:
+  - *Describir el objetivo principal del proyecto.*
+- Objetivos específicos:
+  - *Listar objetivos concretos que permitirán alcanzar el objetivo general.*
 
 ---
 
