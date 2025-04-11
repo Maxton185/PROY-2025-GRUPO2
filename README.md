@@ -69,7 +69,7 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 ## 📅 Cronograma de trabajo
 
 
-[Carta Gantt]([https://google.com](https://docs.google.com/spreadsheets/d/100sGfFv-hZ-4b9II9qAl2fV0gZn1pVB36JyLCS3r4QU/edit?gid=0#gid=0))
+[Carta Gantt](https://docs.google.com/spreadsheets/d/100sGfFv-hZ-4b9II9qAl2fV0gZn1pVB36JyLCS3r4QU/edit?gid=0#gid=0)
 
 ---
 
