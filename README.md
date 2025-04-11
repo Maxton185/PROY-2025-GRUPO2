@@ -9,7 +9,7 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 | Luciano Acuña     | @elshanooooo   | lacunaf@usm.cl           | 202530032-k  |
 | Ozman Morales     | @omoralesd     | omoralesd@usm.cl         | 202530041-9  |
 | Martin Gajardo    | @maxton185     | mgajardom@usm.cl         | 202530033-8  |
-| Nombre4 Apellido4 | @usuario4      | nombre4.apellido4@usm.cl | 200000000000 |
+| Sebastián gonzález | @S3B4ST14N-git| sgonzalezv@usm.cl        | 202530025-7  |
 
 ---
 
@@ -21,10 +21,6 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 🎯 Objetivos
 
-- Objetivo general:
-  - *Describir el objetivo principal del proyecto.*
-- Objetivos específicos:
-  - *Listar objetivos concretos que permitirán alcanzar el objetivo general.*
 
 ---
 
