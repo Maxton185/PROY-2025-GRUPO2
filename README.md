@@ -7,7 +7,7 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 | Nombre y Apellido | Usuario GitHub | Correo USM               | Rol          |
 | ----------------- | -------------- | ------------------------ | ------------ |
 | Luciano Acuña     | @elshanooooo   | lacunaf@usm.cl           | 202530032-k  |
-| Ozman Morales     | @omoralesd     | ozman.morales@usm.cl     | 202530041-9  |
+| Ozman Morales     | @omoralesd     | omoralesd@usm.cl     | 202530041-9  |
 | Martin Gajardo    | @maxton185     | @mgajardom@usm.cl        | 202530033-8  |
 | Nombre4 Apellido4 | @usuario4      | nombre4.apellido4@usm.cl | 200000000000 |
 
