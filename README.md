@@ -21,10 +21,23 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 🎯 Objetivos
 
-- Objetivo general:
-  - *Describir el objetivo principal del proyecto.*
-- Objetivos específicos:
-  - *Listar objetivos concretos que permitirán alcanzar el objetivo general.*
+- *Desarrollar un cinturón integrado con un giroscopio y un acelerómetro para detectar caídas en tiempo real, con el propósito de prevenir o mitigar lesiones en usuarios vulnerables (como adultos mayores o personas con movilidad reducida) mediante un sistema de alertas automáticas que active protocolos de asistencia inmediata:*
+
+  - *Diseñar y construir el prototipo físico del cinturón con materiales ergonómicos, resistentes y adaptables a diferentes tallas para garantizar comodidad y portabilidad.
+
+  - *Implementar un sistema integrado de sensores (giroscopio y acelerómetro) capaz de medir en tiempo real la orientación, aceleración y cambios bruscos de movimiento.*
+
+  - *Desarrollar un algoritmo de detección de caídas basado en datos de los sensores, diferenciando entre movimientos cotidianos (caminar, agacharse) y eventos de caída reales.*
+
+  - *Crear un módulo de comunicación inalámbrica (Bluetooth, WiFi o GSM) para enviar alertas automáticas a dispositivos móviles, cuidadores o servicios de emergencia ante una caída detectada.*
+
+  - *Incorporar un mecanismo de retroalimentación al usuario, en este caso un boton, para confirmar la detección y permitir cancelar falsas alarmas.*
+
+  - *Validar el prototipo en entornos reales mediante pruebas con usuarios de grupos vulnerables (adultos mayores, personas con discapacidad) para ajustar sensibilidad y reducir falsos positivos.*
+
+  - *Analizar datos recopilados por los sensores para mejorar patrones de detección y personalizar alertas según las necesidades del usuario.*
+
+  - *Evaluar la relación costo-beneficio del dispositivo, asegurando que sea accesible para la población objetivo.*
 
 ---
 
