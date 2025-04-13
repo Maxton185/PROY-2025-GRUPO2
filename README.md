@@ -43,8 +43,14 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 🧩 Alcance del proyecto
 
-> *Definir qué aspectos cubre el proyecto y qué queda fuera del alcance (limitaciones).*
-hola
+> *Este proyecto posee una variedad de publicos objetivos:*
+  - *Personas mayores (65+ años).*
+  - *Personas con discapacidad fisica.*
+  - *Cuidadores familiares (alerta de caida).*
+  - *Personal de residencias geriátricas.*
+  - *Deportistas extremos.*
+  - *Trabajadores en alturas.*
+    
 ---
 
 ## 🛠️ Tecnologías y herramientas utilizadas
