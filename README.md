@@ -1,6 +1,6 @@
 # PROY-2025-GRUPO2
 
-Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
+Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 👥 Integrantes del grupo
 
