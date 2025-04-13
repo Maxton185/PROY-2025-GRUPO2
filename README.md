@@ -44,7 +44,7 @@ Repositorio del grupo X para el proyecto del ramo *Proyecto Inicial* – 2025.
 ## 🧩 Alcance del proyecto
 
 > *Definir qué aspectos cubre el proyecto y qué queda fuera del alcance (limitaciones).*
-
+hola
 ---
 
 ## 🛠️ Tecnologías y herramientas utilizadas
