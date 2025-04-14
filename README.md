@@ -23,7 +23,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 - *Desarrollar un cinturón integrado con un giroscopio y un acelerómetro para detectar caídas en tiempo real, con el propósito de prevenir o mitigar lesiones en usuarios vulnerables (como adultos mayores o personas con movilidad reducida) mediante un sistema de alertas automáticas que active protocolos de asistencia inmediata:*
 
-  - *Diseñar y construir el prototipo físico del cinturón con materiales ergonómicos, resistentes y adaptables a diferentes tallas para garantizar comodidad y portabilidad.
+  - *Diseñar y construir el prototipo físico del cinturón con materiales ergonómicos, resistentes y adaptables a diferentes tallas para garantizar comodidad y portabilidad.*
 
   - *Implementar un sistema integrado de sensores (giroscopio y acelerómetro) capaz de medir en tiempo real la orientación, aceleración y cambios bruscos de movimiento.*
 
