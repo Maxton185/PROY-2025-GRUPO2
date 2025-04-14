@@ -15,7 +15,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 📝 Descripción breve del proyecto
 
-> Construir un cinturón que sea capaz de detectar caídas y mandar alertas.
+ *Construir un cinturón que sea capaz de detectar caídas y mandar alertas.*
 
 ---
 
