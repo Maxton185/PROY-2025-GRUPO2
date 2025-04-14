@@ -15,7 +15,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 📝 Descripción breve del proyecto
 
-> *hola
+> Construir un cinturon que sea capaz de detectar caídas y mandar alertas.
 
 ---
 
@@ -60,8 +60,8 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 - Microcontroladores
   - Raspberry Pi Pico W 2
 - Sensor de vibracion 
-- giroscopio
-- acelerometro
+- Giroscopio
+- Acelerometro
 
 ---
 
