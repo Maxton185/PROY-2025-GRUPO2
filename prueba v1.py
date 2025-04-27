@@ -1,13 +1,16 @@
 import machine
-import urequests
 import time
 import network
 import socket
 from mpu6050 import MPU6050
+import _thread
 
 # I2C y sensor
 i2c = machine.I2C(0, scl=machine.Pin(1), sda=machine.Pin(0))
 sensor = MPU6050(i2c)
+# Buzzer
+buzzer = machine.Pin(3, machine.Pin.OUT)
+buzzer.off()
 
 # Conexión Wi-Fi
 SSID = "Italiano"
@@ -26,8 +29,34 @@ print("Conectado con IP:", ip)
 
 # Configuración de caída
 ultima_caida = None
-UMBRAL_ACEL = 2.5  # Gs
-UMBRAL_GYRO = 250  # °/s
+UMBRAL_ACEL = 5.2  # Gs
+UMBRAL_GYRO = 200  # °/s
+
+# HTML principal
+def html_principal():
+    return """\
+HTTP/1.1 200 OK
+
+<html>
+<head>
+    <title>Monitor de Caidas</title>
+    <script>
+    function actualizarEstado() {
+        fetch('/estado')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('estado').innerText = data;
+            });
+    }
+    setInterval(actualizarEstado, 1000);
+    </script>
+</head>
+<body>
+    <h1>Monitor de Cadías</h1>
+    <p id="estado">Cargando...</p>
+</body>
+</html>
+"""
 
 # Servidor web
 def servidor_web():
@@ -42,24 +71,18 @@ def servidor_web():
     while True:
         cl, addr = s.accept()
         print("Cliente web:", addr)
-        cl.recv(1024)
+        request = cl.recv(1024)
+        request_str = str(request)
 
-        estado = "SIN caídas detectadas recientemente"
-        if ultima_caida and time.time() - ultima_caida < 30:
-            estado = "⚠️ ¡Caída detectada hace poco!"
+        if "GET /estado" in request_str:
+            estado = "SIN caídas recientes"
+            if ultima_caida and time.time() - ultima_caida < 10:
+                estado = "⚠️ ¡Caida detectada!"
+            response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n" + estado
+            cl.send(response)
+        else:
+            cl.send(html_principal())
 
-        html = f"""\
-HTTP/1.1 200 OK
-
-<html>
-    <head><title>Estado de Caídas</title></head>
-    <body>
-        <h1>Monitor de Caídas</h1>
-        <p>{estado}</p>
-    </body>
-</html>
-"""
-        cl.send(html)
         cl.close()
 
 # Detección de caída
@@ -71,7 +94,6 @@ def detectar_caida(acel, gyro):
     return total_acel > UMBRAL_ACEL or total_gyro > UMBRAL_GYRO
 
 # Lanzar el servidor en segundo plano
-import _thread
 _thread.start_new_thread(servidor_web, ())
 
 # Bucle principal
@@ -82,6 +104,12 @@ while True:
     if detectar_caida(acel, gyro):
         print("🚨 ¡Caída detectada!")
         ultima_caida = time.time()
+
+        # ACTIVAR BUZZER
+        buzzer.on()
+        time.sleep(1)
+        buzzer.off()
+        
         time.sleep(2)
 
     time.sleep(0.2)
