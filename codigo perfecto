@@ -154,7 +154,7 @@ def detectar_caida():
     gyro  = sensor.get_gyro_data()
     total_acc  = (accel['x']**2 + accel['y']**2 + accel['z']**2)**0.5
     total_gyro = max(abs(gyro['x']), abs(gyro['y']), abs(gyro['z']))
-    if not caida_activa and (total_acc < 0.65 or total_gyro > 240):
+    if not caida_activa and (total_acc < 0.65 or total_gyro > 210):
         caida_activa = True
         ts = time.localtime()
         s_ts = f"{ts[3]:02d}:{ts[4]:02d}:{ts[5]:02d}"
@@ -197,4 +197,5 @@ while True:
 
     manejar_cliente()
     time.sleep(0.1)
+
 
