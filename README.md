@@ -80,7 +80,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 🧪 Metodología
 
-> *Metodologia de prototipado.*
+*Metodologia de prototipado.*
 
 ---
 
