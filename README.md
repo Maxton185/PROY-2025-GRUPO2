@@ -98,6 +98,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 [Pinout Mpu6050](https://components101.com/sensors/mpu6050-module)
 
 [WLAN](https://projects.raspberrypi.org/en/projects/get-started-pico-w)
+
 ---
 
 ## 📌 Notas adicionales
