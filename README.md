@@ -93,7 +93,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 📚 Bibliografía
 
-[Enlace](https://google.com)
+[Enlace]([https://google.com](https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html))
 
 ---
 
