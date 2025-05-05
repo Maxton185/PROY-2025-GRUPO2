@@ -15,7 +15,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 📝 Descripción breve del proyecto
 
- *Construir un cinturón que sea capaz de detectar caídas y mandar alertas.*
+ *Dispositivo portable capaz de detectar caídas y alertar mediante sonido he internet.*
 
 ---
 
@@ -56,12 +56,11 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 ## 🛠️ Tecnologías y herramientas utilizadas
 
 - Lenguaje(s) de programación:
-  - Ej: Python,
-- Microcontroladores
-  - Raspberry Pi Pico W 2
-- Sensor de vibración 
-- Giroscopio
-- Acelerómetro
+  - Microphyton
+- Computador:
+  - Raspberry Pi Pico W 2 
+- Giroscopio y Acelerómetro
+  - MPU6050
 
 ---
 
@@ -81,7 +80,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 🧪 Metodología
 
-> *Describir la metodología de desarrollo del proyecto (ágil, en cascada, prototipado, etc.). También puedes incluir el flujo de trabajo con Git (feature branches, pull requests, etc.).*
+> *Metodologia de prototipado.*
 
 ---
 
