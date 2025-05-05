@@ -99,6 +99,8 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 [WLAN](https://projects.raspberrypi.org/en/projects/get-started-pico-w)
 
+[Thonny](https://thonny.org/)
+
 ---
 
 ## 📌 Notas adicionales
