@@ -94,6 +94,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 ## 📚 Bibliografía
 
 [Pinout Rasperry pi pico w](https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html)
+
 [Pinout Mpu6050](https://components101.com/sensors/mpu6050-module)
 ---
 
