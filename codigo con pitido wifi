@@ -1,0 +1,204 @@
+import machine
+import time
+import network
+import socket
+import ubinascii
+import urequests
+from mpu6050 import MPU6050
+
+# --- Configuración general ---
+PUERTO       = 8080
+SSID         = "Coco"
+PASSWORD     = "cocococo"
+
+# Telegram
+TG_BOT_TOKEN = "8025777647:AAEujn_mRNYcGjHYV47oz80Q_AuTkdfHYrE"
+TG_CHAT_ID   = "6689006729"
+
+# --- Pines y periféricos ---
+i2c      = machine.I2C(0, scl=machine.Pin(1), sda=machine.Pin(0))
+sensor   = MPU6050(i2c)
+buzzer   = machine.Pin(3, machine.Pin.OUT)
+btn_wifi = machine.Pin(27, machine.Pin.IN, machine.Pin.PULL_UP)
+btn2     = machine.Pin(21, machine.Pin.IN, machine.Pin.PULL_UP)
+btn3     = machine.Pin(17, machine.Pin.IN, machine.Pin.PULL_UP)
+
+# --- Estado global ---
+wifi_conectado = False
+current_user   = None  # se seguirá usando para historial si se autentica
+caida_activa   = False
+buzzer_state   = False
+
+# Usuarios e historial en memoria
+usuarios = {
+    "Maxton": "maxton185",
+    "user1":  "pass1",
+}
+historial_per_user = {u: [] for u in usuarios}
+
+# --- Funciones auxiliares ---
+
+def alerta_telegram(msg):
+    url = f"https://api.telegram.org/bot{TG_BOT_TOKEN}/sendMessage"
+    payload = {"chat_id": TG_CHAT_ID, "text": msg}
+    try:
+        r = urequests.post(url, json=payload)
+        r.close()
+    except Exception as e:
+        print("Error Telegram:", e)
+
+# --- Conectar Wi-Fi y servidor HTTP ---
+
+wlan = network.WLAN(network.STA_IF)
+
+def iniciar_wifi():
+    global wifi_conectado
+    print("Esperando botón WiFi (GP27)...")
+    while btn_wifi.value():
+        time.sleep(0.1)
+    print("Conectando a Wi-Fi...")
+    wlan.active(True)
+    wlan.connect(SSID, PASSWORD)
+    while not wlan.isconnected():
+        time.sleep(0.5)
+    print("Wi-Fi OK, IP:", wlan.ifconfig()[0])
+    wifi_conectado = True
+    buzzer.value(1)
+    time.sleep(0.3)
+    buzzer.value(0)
+    iniciar_servidor()
+
+servidor_socket = None
+
+def iniciar_servidor():
+    global servidor_socket
+    try:
+        addr = socket.getaddrinfo("0.0.0.0", PUERTO)[0][-1]
+        s = socket.socket()
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        s.settimeout(1)
+        s.bind(addr)
+        s.listen(1)
+        servidor_socket = s
+        print(f"Servidor HTTP escucha en puerto {PUERTO}")
+    except Exception as e:
+        print("Error al iniciar servidor:", e)
+
+def manejar_cliente():
+    global current_user
+    if not servidor_socket:
+        return
+    try:
+        cl, addr = servidor_socket.accept()
+    except:
+        return
+    try:
+        req = cl.recv(1024).decode("utf-8", "ignore")
+        # Autenticación básica
+        user = None
+        if "Authorization: Basic " in req:
+            cred = req.split("Authorization: Basic ")[1].split("\r\n")[0]
+            u, p = ubinascii.a2b_base64(cred).decode().split(":")
+            if usuarios.get(u) == p:
+                user = u
+        if not user:
+            cl.send("HTTP/1.1 401 Unauthorized\r\nWWW-Authenticate: Basic realm=\"Acceso\"\r\n\r\n")
+            cl.close()
+            return
+        current_user = user
+
+        # Rutas
+        if req.startswith("GET /estado"):
+            estado = "¡¡CAÍDA!!" if caida_activa else "SIN CAÍDAS"
+            cl.send("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n" + estado)
+
+        elif req.startswith("GET /historial"):
+            lines = historial_per_user.get(current_user, [])[-10:]
+            body = "<br>".join(lines)
+            cl.send("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n" + body)
+
+        elif req.startswith("GET /borrar"):
+            historial_per_user[current_user].clear()
+            cl.send("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nHistorial borrado")
+
+        else:
+            page = f"""HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+<head><title>Monitor Caidas - {current_user}</title>
+<script>
+function update() {{
+  fetch('/estado').then(r=>r.text()).then(t=>document.getElementById('e').innerText=t);
+  fetch('/historial').then(r=>r.text()).then(h=>document.getElementById('h').innerHTML=h);
+}}
+setInterval(update,1000);
+</script>
+</head>
+<body>
+  <h1>Caidas ({current_user})</h1>
+  <p id="e">Cargando...</p>
+  <h2>Historial</h2>
+  <div id="h">Cargando...</div>
+  <button onclick="fetch('/borrar').then(update)">Borrar historial</button>
+</body>
+</html>"""
+            cl.send(page)
+    except Exception as e:
+        print("Error cliente:", e)
+    finally:
+        cl.close()
+
+# --- Detección de caídas ---
+
+def detectar_caida():
+    global caida_activa
+    accel = sensor.get_accel_data()
+    gyro  = sensor.get_gyro_data()
+    total_acc  = (accel['x']**2 + accel['y']**2 + accel['z']**2)**0.5
+    total_gyro = max(abs(gyro['x']), abs(gyro['y']), abs(gyro['z']))
+    if not caida_activa and (total_acc < 0.65 or total_gyro > 210):
+        caida_activa = True
+        ts = time.localtime()
+        s_ts = f"{ts[3]:02d}:{ts[4]:02d}:{ts[5]:02d}"
+        texto = f"Caída a las {s_ts}"
+        # Historial (usa “Anon” si no hay current_user)
+        user = current_user or "Anon"
+        historial_per_user.setdefault(user, []).append(texto)
+        # Telegram
+        alerta_telegram(f"[{user}] {texto}")
+        print("Caída detectada:", texto)
+
+# --- Programa principal ---
+
+iniciar_wifi()
+
+while True:
+    detectar_caida()
+
+    # Buzzer intermitente hasta pulsar btn3
+    if caida_activa:
+        buzzer_state = not buzzer_state
+        buzzer.value(buzzer_state)
+        if btn3.value() == 0:
+            caida_activa = False
+            buzzer.value(0)
+            print("Alarma parada por botón 3")
+        time.sleep(0.5)
+
+    # Panic triple pulsador
+    if btn_wifi.value()==0 and btn2.value()==0 and btn3.value()==0:
+        ts = time.localtime()
+        s_ts = f"{ts[3]:02d}:{ts[4]:02d}:{ts[5]:02d}"
+        texto = f"PANICO a las {s_ts}"
+        user = current_user or "Anon"
+        historial_per_user.setdefault(user, []).append(texto)
+        alerta_telegram(f"[{user}] {texto}")
+        for _ in range(3):
+            buzzer.value(1); time.sleep(0.3)
+            buzzer.value(0); time.sleep(0.3)
+
+    manejar_cliente()
+    time.sleep(0.1)
+
+
