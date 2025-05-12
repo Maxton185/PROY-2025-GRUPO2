@@ -63,9 +63,6 @@ def iniciar_wifi():
         time.sleep(0.5)
     print("Wi-Fi OK, IP:", wlan.ifconfig()[0])
     wifi_conectado = True
-    buzzer.value(1)
-    time.sleep(0.3)
-    buzzer.value(0)
     iniciar_servidor()
 
 servidor_socket = None
