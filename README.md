@@ -58,10 +58,11 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 - Lenguaje(s) de programación:
   - Microphyton
 - Computador:
-  - Raspberry Pi Pico W 2 
-- Giroscopio y Acelerómetro
-  - MPU6050
-
+  - Raspberry Pi Pico 2 W 
+- Componentes:
+  - MPU6050.
+  - buzzer.
+  - pulsadores.
 ---
 
 ## 🗂️ Estructura del repositorio
@@ -80,7 +81,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 ## 🧪 Metodología
 
-*Metodologia de prototipado.*
+*Metodologia de prototipado*
 
 ---
 
