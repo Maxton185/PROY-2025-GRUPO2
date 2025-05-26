@@ -103,6 +103,8 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 
 [Thonny](https://thonny.org/)
 
+[Telegram](https://core.telegram.org/bots/tutorial)
+
 ---
 
 ## 📌 Notas adicionales
