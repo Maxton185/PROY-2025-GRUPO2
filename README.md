@@ -63,7 +63,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
   - MPU6050.
   - buzzer.
   - pulsadores.
-  - pantalla.
+  - pantalla oled gme12864
 ---
 
 ## 🗂️ Estructura del repositorio
