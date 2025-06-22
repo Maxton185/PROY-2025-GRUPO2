@@ -110,3 +110,7 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
 ## 📌 Notas adicionales
 
 > *Espacio para dejar cualquier comentario útil, como pendientes, acuerdos del grupo, consideraciones especiales, etc.*
+
+## Video de youtube
+
+[video](https://youtu.be/Az3OOnGK5uM)
