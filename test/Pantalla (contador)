@@ -1,0 +1,42 @@
+from machine import Pin, I2C
+import ssd1306
+import time
+
+# Configuración de pines específicos (físicos 36, 18, 12, 11)
+# Pines GPIO equivalentes:
+#   SDA: GPIO 8 (físico 11) -> I2C0 SDA
+#   SCK: GPIO 9 (físico 12) -> I2C0 SCL
+i2c = I2C(0, sda=Pin(8), scl=Pin(9))  # Usar bus I2C0
+
+# Inicialización del display (128x64 es común, ajusta si es necesario)
+oled = ssd1306.SSD1306_I2C(128, 64, i2c)
+
+# Limpiar pantalla
+oled.fill(0)
+oled.show()
+
+# Función para mostrar mensaje centrado
+def show_centered(text, y):
+    x = (128 - len(text) * 8) // 2
+    oled.text(text, x, y)
+    oled.show()
+
+# Mensaje inicial
+show_centered("Raspberry Pi", 20)
+show_centered("Pico W", 35)
+
+# Ciclo principal
+try:
+    counter = 0
+    while True:
+        # Mostrar contador
+        oled.fill_rect(0, 50, 128, 14, 0)  # Limpiar área del contador
+        oled.text(f"Contador: {counter}", 10, 50)
+        oled.show()
+        
+        counter += 1
+        time.sleep(1)
+        
+except KeyboardInterrupt:
+    oled.poweroff()
+    print("Display apagado")
