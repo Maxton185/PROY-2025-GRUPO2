@@ -1,0 +1,47 @@
+# Mapeo de GPIO a pines físicos en Raspberry Pi Pico W
+gpio_to_physical = {
+    0: 1, 1: 2, 2: 4, 3: 5, 4: 6, 5: 7, 6: 9, 7: 10,
+    8: 11, 9: 12, 10: 14, 11: 15, 12: 16, 13: 17, 14: 19, 15: 20,
+    16: 21, 17: 22, 18: 24, 19: 25, 20: 26, 21: 27, 22: 29,
+    26: 31, 27: 32, 28: 34
+}
+
+# Pines de alimentación (físicos)
+vdd_pins = [36, 37]    # 3.3V
+gnd_pins = [3, 8, 13, 18, 23, 28, 33, 38]  # GND
+
+# Pines I2C con sus funciones (GPIO para SDA/SCL)
+i2c0_sda = [0, 4, 8, 12, 16, 20]  # GPIO para SDA (I2C0)
+i2c0_scl = [1, 5, 9, 13, 17, 21]  # GPIO para SCL (I2C0)
+i2c1_sda = [2, 6, 10, 14, 18, 26] # GPIO para SDA (I2C1)
+i2c1_scl = [3, 7, 11, 15, 19, 27] # GPIO para SCL (I2C1)
+
+# Convertir listas de GPIO a pines físicos
+def gpio_list_to_physical(gpio_list):
+    return [gpio_to_physical[gpio] for gpio in gpio_list]
+
+i2c0_sda_phy = gpio_list_to_physical(i2c0_sda)
+i2c0_scl_phy = gpio_list_to_physical(i2c0_scl)
+i2c1_sda_phy = gpio_list_to_physical(i2c1_sda)
+i2c1_scl_phy = gpio_list_to_physical(i2c1_scl)
+
+# Generar todas las combinaciones válidas
+combinaciones = []
+
+for vdd in vdd_pins:
+    for gnd in gnd_pins:
+        # I2C0
+        for sda0 in i2c0_sda_phy:
+            for sck0 in i2c0_scl_phy:
+                combinaciones.append((vdd, gnd, sck0, sda0))
+        
+        # I2C1
+        for sda1 in i2c1_sda_phy:
+            for sck1 in i2c1_scl_phy:
+                combinaciones.append((vdd, gnd, sck1, sda1))
+
+# Mostrar resultados
+print(f"Total de combinaciones válidas: {len(combinaciones)}")
+print("\nEjemplos de combinaciones (VDD, GND, SCK, SDA):")
+for i in range(min(5, len(combinaciones))):
+    print(combinaciones[i])
