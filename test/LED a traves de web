@@ -1,0 +1,68 @@
+import network
+import socket
+import machine
+import time
+
+# === Configura WiFi ===
+SSID = "Chano1234"
+PASSWORD = "Holasoylu"
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(SSID, PASSWORD)
+
+print("Conectando al WiFi...")
+while not wlan.isconnected():
+    time.sleep(0.5)
+
+ip = wlan.ifconfig()[0]
+print("Conectado. Dirección IP:", ip)
+
+# === LED ===
+led = machine.Pin("LED", machine.Pin.OUT)  # Puedes usar GP15 u otro pin si no es el LED interno
+
+# === Página HTML ===
+def html(estado):
+    estado_str = "ENCENDIDO" if estado else "APAGADO"
+    boton = "Apagar" if estado else "Encender"
+    accion = "off" if estado else "on"
+    return f"""\
+HTTP/1.1 200 OK
+
+<html>
+<head><title>Control LED</title></head>
+<body>
+<h1>LED: {estado_str}</h1>
+<form>
+  <button type="submit" name="led" value="{accion}">{boton}</button>
+</form>
+</body>
+</html>
+"""
+
+# === Servidor web ===
+s = socket.socket()
+s.bind(('0.0.0.0', 80))
+s.listen(1)
+print("Servidor web iniciado. Abre en el navegador:", ip)
+
+led_estado = False
+
+while True:
+    cl, addr = s.accept()
+    print("Cliente conectado:", addr)
+    request = cl.recv(1024).decode()
+    print("Solicitud:", request)
+
+    # Procesar la solicitud
+    if '/?led=on' in request:
+        led.on()
+        led_estado = True
+    elif '/?led=off' in request:
+        led.off()
+        led_estado = False
+
+    # Enviar respuesta
+    respuesta = html(led_estado)
+    cl.send(respuesta)
+    cl.close()
