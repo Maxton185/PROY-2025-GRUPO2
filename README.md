@@ -66,6 +66,31 @@ Repositorio del grupo 2 para el proyecto del ramo *Proyecto Inicial* – 2025.
   - pantalla oled gme12864
 ---
 
+## Intrucciones de uso
+
+- Diagrama de conexion:
+  - Raspberry a Mpu6050:
+  - pin (Gpo) 0 : sda/mpu6050
+  - pin (Gpo) 1 : scl/mpu6050
+  - pin 40 : vcc/mpu6050
+  - pin 37 : gnd/mpu6050
+ 
+  - Raspberry a buzzer:
+  - pin 5 : positive/buzzer
+  - pin 8 : negarive/buzzer
+ 
+  - Raspberry a botones:
+  - pin 28 : pin 1/boton 1
+  - pin 27 : pin 2/boton 1
+  - pin 23 : pin 1/boton 2
+  - pin 22 : pin 1/boton 2
+  - pin 32 : pin 1/boton 3
+  - pin 31 : pin 2/boton 3
+ 
+  - Raspberry a oled:
+  - pin 35 : pin vdd/oled
+  - 
+---
 ## 🗂️ Estructura del repositorio
 
 ```
