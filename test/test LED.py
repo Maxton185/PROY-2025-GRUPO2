@@ -1,9 +1,9 @@
-import machine
+from machine import Pin
 import time
 
-led = machine.Pin(15, machine.Pin.OUT)  # Usa GP15 como salida
-led.on()  # Enciende el LED
+# Usamos el pin 25 que está conectado al LED integrado en la Raspberry Pi Pico W
+led = Pin("LED", Pin.OUT)
 
-# Si quieres mantenerlo encendido por 5 segundos:
-time.sleep(5)
-led.off()  # Apaga el LED después
+while True:
+    led.toggle()       # Cambia el estado del LED (on/off)
+    time.sleep(1)
